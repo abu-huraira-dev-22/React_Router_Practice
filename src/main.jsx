@@ -6,6 +6,7 @@ import Home from "./Pages/Home/index.jsx";
 import About from "./Pages/About/index.jsx";
 import Contact from "./App.jsx";
 import Jobs from "./Pages/Jobs/index.jsx";
+import SingleJob from "./Pages/SingleJob/index.jsx";
 
 createRoot(document.getElementById("root")).render(
   <BrowserRouter>
@@ -14,6 +15,7 @@ createRoot(document.getElementById("root")).render(
       <Route path="/contact" element={<Contact />} />
       <Route path="/about" element={<About />} />
       <Route path="/jobs" element={<Jobs />} />
+      <Route path="/jobs/:uniqueId" element={<SingleJob />} />
     </Routes>
   </BrowserRouter>,
 );
