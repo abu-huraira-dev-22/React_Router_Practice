@@ -1,13 +1,20 @@
 import { useEffect, useState } from "react";
 import Navbar from "../../Components/Navbar";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import useFetch from "../../Custom Hook/useFetch";
 
 const Jobs = () => {
 
+  const [searchParams, setSearchParams] = useSearchParams()
+  const keyWord = searchParams.get('keyWord')
 
-const [filters] = useFetch('https://api.hiringmine.com/api/filterations/all',true)
-const [jobs] = useFetch("https://api.hiringmine.com/api/jobAds/all?limit=10&pageNo=1&keyWord=&category=&isPending=false&skills=")
+  const [filters] = useFetch(
+    "https://api.hiringmine.com/api/filterations/all",
+    true,
+  );
+  const [jobs] = useFetch(
+    `https://api.hiringmine.com/api/jobAds/all?limit=10&pageNo=1&keyWord=${keyWord || ''}&category=&isPending=false&skills=`,
+  );
 
   return (
     <>
@@ -37,9 +44,10 @@ const [jobs] = useFetch("https://api.hiringmine.com/api/jobAds/all?limit=10&page
 
       <h1 style={{ textAlign: "center" }}>Our Jobs</h1>
       {jobs.map(
-        ({ companyName, designation, payRangeStart, country, city,_id }) => {
+        ({ companyName, designation, payRangeStart, country, city, _id }) => {
           return (
-            <Link to={`/jobs/${_id}`}
+            <Link
+              to={`/jobs/${_id}`}
               style={{
                 border: "2px solid black",
                 textAlign: "center",

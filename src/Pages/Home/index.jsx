@@ -1,15 +1,23 @@
 import { useEffect, useState } from "react";
 import Navbar from "../../Components/Navbar";
 import useFetch from "../../Custom Hook/useFetch";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+
+  const navigate = useNavigate()
 
   const [jobs] = useFetch("https://api.hiringmine.com/api/jobAds/all?limit=10&pageNo=1&keyWord=&category=&isPending=false&skills=",)
   const [users] = useFetch('https://api.hiringmine.com/api/users/home?sortBy=mostViewed',)
   
+  function pageChanger(){
+    navigate('/jobs?keyWord=react')
+  }
+
   return (
     <>
       <Navbar />
+      <button onClick={pageChanger} style={{fontSize:'100px', margin:'50px auto', display:'block'}}>React Jobs</button>
       <h1 style={{ textAlign: "center" }}>This is Home Page</h1>
       <div
         style={{
@@ -19,7 +27,7 @@ const Home = () => {
         }}
       >
         {jobs
-          .slice(0, 3)
+          .slice(0, 4)
           .map(({ companyName, designation, payRangeStart, country, city }) => {
             return (
               <div
